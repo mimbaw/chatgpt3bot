@@ -20,7 +20,7 @@ class MessageHandler:
 
 
     def _get_dialog_history(self) -> list:
-        with open('back\data.json') as f:
+        with open('backend\data.json') as f:
             data = json.load(f)
         if self.user_id in data:
             messages = []
@@ -32,13 +32,13 @@ class MessageHandler:
 
 
     def _save_data(self, messages: dict, answer: dict) -> None:
-        with open('back\data.json') as f:
+        with open('backend\data.json') as f:
             data = json.load(f)
         if self.user_id in data:
             data[self.user_id].append((messages, answer, {"date": datetime.now().strftime("%d/%m/%Y, %H:%M:%S")}))
         else:
             data[self.user_id] = [(messages, answer, {"date": datetime.now().strftime("%d/%m/%Y, %H:%M:%S")})]
-        with open('back\data.json', 'w') as f:
+        with open('backend\data.json', 'w') as f:
             json.dump(data, f)
 
 
@@ -66,8 +66,8 @@ class MessageHandler:
 
 
 def clear_dialog(user_id: str) -> None:
-    with open('back\data.json') as f:
+    with open('backend\data.json') as f:
         data = json.load(f)
     del data[user_id]
-    with open('back\data.json', 'w') as f:
+    with open('backend\data.json', 'w') as f:
         json.dump(data, f)
